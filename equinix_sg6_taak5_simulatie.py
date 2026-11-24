@@ -71,15 +71,15 @@ CONFIG = {
     #           Opmerking: extra capaciteit Delta_K in jaar t (>1) wordt verdisconteerd
     #           aan het begin van jaar t, dus met factor 1 / (1 + r)^(t - 1).
     "policies": {
-        "Taak3_Statisch_10_4MW": {
+        "Originele capaciteitsbeslissing zonder uitbreiding": {
             "Cloud": [5.39] * 10,
             "AI":    [5.01] * 10,
         },
-        "Taak4_AltA_20MW_Ineens": {
+        "UitbreidingA": {
             "Cloud": [7.00] * 10,
             "AI":    [13.00] * 10,
         },
-        "Taak4_AltB_Gefaseerd_10_15_20": {
+        "UitbreidingB": {
             "Cloud": [5.50, 5.50, 5.50, 6.50, 6.50, 6.50, 6.50, 6.50, 7.00, 7.00],
             "AI":    [4.50, 4.50, 4.50, 8.50, 8.50, 8.50, 8.50, 8.50, 13.00, 13.00],
         },
@@ -519,13 +519,13 @@ def main() -> None:
     plot_demand_paths(
         CONFIG,
         demand_base_10,
-        policy_name="Taak4_AltB_Gefaseerd_10_15_20",
+        policy_name="UitbreidingB",
         filepath=CONFIG["output_plot_paths"],
     )
     plot_npv_stresstest(
         df_all_paths,
         planned_npv_total=analytical["Totaal"]["planned_NPV"],
-        policy_name="Taak4_AltB_Gefaseerd_10_15_20",
+        policy_name="UitbreidingB",
         filepath=CONFIG["output_plot_npv"],
     )
     print(f"[6] Grafieken opgeslagen als '{CONFIG['output_plot_paths']}' en '{CONFIG['output_plot_npv']}'.")
