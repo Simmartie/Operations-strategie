@@ -71,18 +71,19 @@ CONFIG = {
     #           Opmerking: extra capaciteit Delta_K in jaar t (>1) wordt verdisconteerd
     #           aan het begin van jaar t, dus met factor 1 / (1 + r)^(t - 1).
     "policies": {
-        "Beleid_A_Taak3_Statisch": {
+        "Taak3_Statisch_10_4MW": {
             "Cloud": [5.39] * 10,
             "AI":    [5.01] * 10,
         },
-        "Beleid_B_Taak4_Placeholder": {
-            # Voorbeeld: start met Fase 1 (5,00 MW Cloud + 3,00 MW AI = 8,00 MW)
-            # en breid uit in jaar 5 naar 6,50 MW Cloud + 8,00 MW AI (= 14,50 MW).
-            "Cloud": [5.00, 5.00, 5.00, 5.00, 6.50, 6.50, 6.50, 6.50, 6.50, 6.50],
-            "AI":    [3.00, 3.00, 3.00, 3.00, 8.00, 8.00, 8.00, 8.00, 8.00, 8.00],
+        "Taak4_AltA_20MW_Ineens": {
+            "Cloud": [7.00] * 10,
+            "AI":    [13.00] * 10,
+        },
+        "Taak4_AltB_Gefaseerd_10_15_20": {
+            "Cloud": [5.50, 5.50, 5.50, 6.50, 6.50, 6.50, 6.50, 6.50, 7.00, 7.00],
+            "AI":    [4.50, 4.50, 4.50, 8.50, 8.50, 8.50, 8.50, 8.50, 13.00, 13.00],
         },
     },
-
     # -------------------------------------------------------------------------
     # STRESSTEST-SCENARIO'S (afwijkende vraagveronderstellingen voor Taak 5)
     # -------------------------------------------------------------------------
@@ -518,13 +519,13 @@ def main() -> None:
     plot_demand_paths(
         CONFIG,
         demand_base_10,
-        policy_name="Beleid_A_Taak3_Statisch",
+        policy_name="Taak4_AltB_Gefaseerd_10_15_20",
         filepath=CONFIG["output_plot_paths"],
     )
     plot_npv_stresstest(
         df_all_paths,
         planned_npv_total=analytical["Totaal"]["planned_NPV"],
-        policy_name="Beleid_A_Taak3_Statisch",
+        policy_name="Taak4_AltB_Gefaseerd_10_15_20",
         filepath=CONFIG["output_plot_npv"],
     )
     print(f"[6] Grafieken opgeslagen als '{CONFIG['output_plot_paths']}' en '{CONFIG['output_plot_npv']}'.")
